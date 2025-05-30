@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pankaj - Full Stack Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 20%, #4ade80 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, #22c55e 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, #16a34a 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ade80;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '{ }';
+            color: #22c55e;
+            margin-left: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .cta-button {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            border: none;
+            color: #000000;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(74, 222, 128, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        section {
+            padding: 5rem 5%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px #4ade80);
+            }
+
+            to {
+                filter: drop-shadow(0 0 15px #4ade80);
+            }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: rgba(74, 222, 128, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Services Section */
+        .services {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: #4ade80;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74, 222, 128, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            border-color: #4ade80;
+            box-shadow: 0 25px 50px rgba(74, 222, 128, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: #4ade80;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: #4ade80;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(74, 222, 128, 0.4);
+        }
+
+        /* Projects Section */
+        .projects {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .projects h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: #4ade80;
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            transition: all 0.4s ease;
+            margin-bottom: 2rem;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(74, 222, 128, 0.2);
+        }
+
+        .project-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .project-title {
+            color: #4ade80;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid #22c55e;
+        }
+
+        .project-body {
+            padding: 2rem;
+        }
+
+        .project-description {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            border: 1px solid #4ade80;
+            color: #4ade80;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: #4ade80;
+            color: #000000;
+        }
+
+        /* Skills Section */
+        .skills h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: #4ade80;
+            margin-bottom: 3rem;
+        }
+
+        .skills-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .skill-category h3 {
+            color: #4ade80;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .skill-name {
+            font-weight: 500;
+        }
+
+        .skill-level {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4ade80, #22c55e);
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: #4ade80;
+            margin-bottom: 3rem;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #4ade80;
+            margin-right: 1rem;
+            width: 30px;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4ade80;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4ade80;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            border: none;
+            border-radius: 10px;
+            color: #000000;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(74, 222, 128, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            border-top-color: #000000;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        /* Statistics Section */
+        .stats {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 3rem 5%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            color: #4ade80;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            color: #4ade80;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #22c55e;
+            transform: translateY(-3px);
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            color: #000000;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(100px);
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(74, 222, 128, 0.4);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+
+            .services h2,
+            .skills h2,
+            .contact h2,
+            .projects h2 {
+                font-size: 2.5rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .tech-stack {
+                gap: 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <nav>
+            <a href="#home" class="logo">Pankaj</a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="cta-button">Let's Connect</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Full Stack Developer</h1>
+                <p>Building scalable web applications with modern technologies</p>
+                <p>Frontend • Backend • Database • DevOps</p>
+
+                <div class="tech-stack">
+                    <div class="tech-item">React</div>
+                    <div class="tech-item">Node.js</div>
+                    <div class="tech-item">Python</div>
+                    <div class="tech-item">MongoDB</div>
+                    <div class="tech-item">AWS</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="50">0</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="3">0</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="25">0</span>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-label">Technologies</span>
+                </div>
+            </div>
+        </div>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Full Stack Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎨</div>
+                        <h3>Frontend Development</h3>
+                        <p>Creating responsive, interactive user interfaces using modern frameworks and libraries. Focus
+                            on performance, accessibility, and user experience.</p>
+                        <div class="service-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Tailwind</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">⚙️</div>
+                        <h3>Backend Development</h3>
+                        <p>Building robust server-side applications, RESTful APIs, and microservices. Implementing
+                            authentication, data validation, and business logic.</p>
+                        <div class="service-tech">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">FastAPI</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💾</div>
+                        <h3>Database Design</h3>
+                        <p>Designing efficient database schemas, optimizing queries, and implementing data modeling for
+                            both SQL and NoSQL databases.</p>
+                        <div class="service-tech">
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">☁️</div>
+                        <h3>Cloud & DevOps</h3>
+                        <p>Deploying applications to cloud platforms, setting up CI/CD pipelines, containerization, and
+                            infrastructure management.</p>
+                        <div class="service-tech">
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">GitHub Actions</span>
+                            <span class="tech-tag">Nginx</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2>Featured Projects</h2>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">E-Commerce Platform</h3>
+                        <span class="project-status">Live</span>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Full-stack e-commerce platform with real-time inventory management, payment integration,
+                            and admin dashboard. Built with React, Node.js, MongoDB, and Stripe API.
+                        </p>
+                        <div class="service-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Stripe</span>
+                            <span class="tech-tag">AWS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Task Management System</h3>
+                        <span class="project-status">Live</span>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Collaborative project management tool with real-time updates, file sharing,
+                            and team communication features. Includes REST API and WebSocket integration.
+                        </p>
+                        <div class="service-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">Socket.io</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">AI Chat Application</h3>
+                        <span class="project-status">Development</span>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Real-time chat application with AI-powered responses, message encryption,
+                            and file sharing capabilities. Integrated with OpenAI API for intelligent conversations.
+                        </p>
+                        <div class="service-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">OpenAI</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Coming Soon</a>
+                            <a href="#" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2>Technical Skills</h2>
+                <div class="skills-categories">
+                    <div class="skill-category">
+                        <h3>Frontend</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">React</span>
+                            <span class="skill-level">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name">JavaScript/TypeScript</span>
+                            <span class="skill-level">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name">Vue.js</span>
+                            <span class="skill-level">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Backend</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Node.js</span>
+                            <span class="skill-level">88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-level">82%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 82%"></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name">Express/FastAPI</span>
+                            <span class="skill-level">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name">GraphQL</span>
+                            <span class="skill-level">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" style="padding: 4rem 1rem; background-color: #0a0a0a; color: #ffffff;">
+            <div style="max-width: 800px; margin: auto; text-align: center;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #00ff88;">Get in Touch</h2>
+                <p style="margin-bottom: 2rem;">Have a project in mind, a question, or just want to connect? Feel free to drop a message below.</p>
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <input type="text" name="name" placeholder="Your Name" required style="padding: 0.75rem; border: none; border-radius: 8px;" />
+                    <input type="email" name="email" placeholder="Your Email" required style="padding: 0.75rem; border: none; border-radius: 8px;" />
+                    <textarea name="message" rows="5" placeholder="Your Message" required style="padding: 0.75rem; border: none; border-radius: 8px;"></textarea>
+                    <button type="submit" style="padding: 0.75rem; background-color: #00ff88; border: none; border-radius: 8px; color: #000; font-weight: bold;">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 1rem;">
+                &copy; 2023 Pankaj. All rights reserved.
+            </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/pankaj-kumar-0a98b5302/" class="social-link" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/Pankaj-Babu001" class="social-link" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://x.com/PankajB42550" class="social-link" target="_blank" rel="noopener">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">
+        ↑
+    </button>
+
+    <script>
+        // Scroll to top button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Statistics counter
+        const stats = document.querySelectorAll('.stat-number');
+        let statsAnimated = false;
+        function animateStats() {
+            if (statsAnimated) return;
+            stats.forEach(stat => {
+                const target = +stat.getAttribute('data-target');
+                let count = 0;
+                const increment = Math.ceil(target / 100);
+                const interval = setInterval(() => {
+                    count += increment;
+                    stat.innerText = count;
+                    if (count >= target) {
+                        stat.innerText = target;
+                        clearInterval(interval);
+                    }
+                }, 20);
+            });
+            statsAnimated = true;
+        }
+        window.addEventListener('scroll', () => {
+            const statsSection = document.querySelector('.stats');
+            const rect = statsSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                animateStats();
+            }
+        });
+
+        // Form submission handling
+        const form = document.querySelector('form[action^="https://formspree.io"]');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const submitButton = form.querySelector('button[type="submit"]');
+            let messageContainer = form.querySelector('.message');
+            if (!messageContainer) {
+                messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                form.appendChild(messageContainer);
+            }
+            messageContainer.style.display = 'block';
+            messageContainer.classList.remove('success', 'error');
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Sending...';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        messageContainer.classList.add('success');
+                        messageContainer.innerHTML = 'Message sent successfully!';
+                        form.reset();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                })
+                .catch(error => {
+                    messageContainer.classList.add('error');
+                    messageContainer.innerHTML = 'Error sending message. Please try again later.';
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Send Message';
+                    setTimeout(() => {
+                        messageContainer.style.display = 'none';
+                    }, 4000);
+                });
+        });
+
+        // Accessibility: Close scroll-to-top with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+
+</html>
